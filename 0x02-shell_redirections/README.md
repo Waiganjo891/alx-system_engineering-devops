@@ -1,1 +1,1 @@
-0-hello_world has Write a script that prints “Hello, World”, followed by a new line to the standard output command
+1-confused_smiley has Write a script that displays a confused smiley face.
