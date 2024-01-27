@@ -3,7 +3,7 @@
 # Displays good luck for the 8th loop iteration
 # Displays Best School for the other iterations
 a=1
-while [ "$a" -1e 10 ]
+while [ "$a" -le 10 ]
 do
 	if [ "$a" -eq 4 ]
 	then
