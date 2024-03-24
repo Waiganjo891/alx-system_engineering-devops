@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-Host 100.25.140.164
+Host 54.236.44.33
 	PasswordAuthentication no
 	IdentityFile ~/.ssh/school
 	SendEnv LANG LC_*
