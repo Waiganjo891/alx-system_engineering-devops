@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# creates a symbolic link between the Nginx configuration file
+
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo service nginx restart
+kill "$(pgrep 'nginx' | head -1)"
