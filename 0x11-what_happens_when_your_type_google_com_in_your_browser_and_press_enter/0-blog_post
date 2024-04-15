@@ -1,0 +1,40 @@
+What happens when you type https://www.google.com in your browser and press Enter.
+
+This question is a classic and still widely used interview question for many types of software engineering position. It is used to assess a candidate’s general knowledge of how the web stack works on top of the internet.This question is a good test of whether you understand DNS. Many software engineering candidates struggle with this concept, so if you do well on this question, you are already way ahead of the curve.
+
+This are concepts I will cover:
+1) DNS request
+2) TCP/IP
+3) Firewall
+4) HTTPS/SSL
+5) Load-balancer
+6) Web server
+7) Application server
+8) Database
+
+1) DNS request
+The journey begins with a Domain Name System (DNS) request. When you type "https://www.google.com" in your browser, the browser needs to translate this human-readable domain name into an IP address that servers understand. The DNS resolver is tasked with this responsibility. It first checks its cache for the IP address corresponding to "www.google.com." If not found, it sends a request to the DNS server, which recursively resolves the domain hierarchy until it finds the IP address associated with "www.google.com."
+
+2) TCP/IP
+With the IP address obtained, the browser initiates a Transmission Control Protocol (TCP) connection to the server. TCP ensures reliable and ordered delivery of data between the client and server over the internet. Through a series of handshakes, the client and server establish a connection, enabling the exchange of data.
+
+3) Firewall
+As the TCP connection is established, the data packets traverse through various network devices, including firewalls. Firewalls act as gatekeepers, inspecting incoming and outgoing traffic to enforce security policies. They analyze the data packets based on predefined rules and either allow or block them accordingly.
+
+4) HTTPS/SSL
+In today's digital landscape, security is paramount. Hypertext Transfer Protocol Secure (HTTPS) ensures secure communication over the internet by encrypting data exchanged between the client and server. This encryption is facilitated by Secure Sockets Layer (SSL) or its successor, Transport Layer Security (TLS). When you type "https://" before the domain name, you're indicating that you want to establish a secure connection. The SSL/TLS handshake occurs, wherein the client and server exchange cryptographic keys to encrypt and decrypt data.
+
+5) Load-balancer
+Behind the scenes, large-scale websites like Google employ load balancers to distribute incoming traffic across multiple servers. Load balancers enhance scalability, reliability, and performance by evenly distributing the workload among server instances. They monitor server health, route requests based on various algorithms, and ensure high availability of services.
+
+6) Web server
+Once the request reaches the appropriate server, a web server like Apache or Nginx processes it. The web server retrieves the requested resources, such as HTML files, images, or scripts, and prepares a response to send back to the client.
+
+7) Application server
+In some cases, the web server delegates dynamic content generation to an application server. This server executes application logic, interacts with databases, and generates personalized responses based on user input or database queries.
+
+8) Database
+For websites with dynamic content or data-driven applications, databases play a crucial role. Application servers communicate with databases to retrieve or store information, such as user profiles, search results, or transaction records. Popular database management systems like MySQL, PostgreSQL, or MongoDB handle data storage and retrieval efficiently.
+
+Conclusion
+The journey of a web request from typing "https://www.google.com" to the rendering of the webpage involves a multitude of components working seamlessly together. From the initial DNS resolution to the final delivery of content, each step in the process contributes to a smooth and secure browsing experience. Understanding these underlying mechanisms provides insights into the intricate workings of the web stack and underscores the importance of various technologies in powering the modern internet.
