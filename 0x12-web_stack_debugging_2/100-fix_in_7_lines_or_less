@@ -1,12 +1,3 @@
 #!/usr/bin/env bash
-# This script checks if a website is up using curl
-
-website="http://kaihonyo.tech"
-
-response=$(curl -s --head $website)
-
-if [[ $response == *200* ]]; then
-    echo "Website is up!"
-else
-    echo "Website is down :("
-fi
+# This script prints a greeting message
+echo "Hello, world!"
