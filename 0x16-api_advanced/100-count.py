@@ -1,52 +1,57 @@
 #!/usr/bin/python3
 """
-Function to query subscribers on a given Reddit
+It counts words
 """
 import requests
-import sys
+from collections import Counter
+from typing import List
 
 
-def count_words(subreddit, word_list, after=None, counts={}):
+def count_words(subreddit: str, word_list: List[str]) -> None:
     """
-    Recursive function that queries the Reddit API
+    Base case: No more pages to fetch
     """
-    if not word_list or word_list == [] or not subreddit:
+    if not has_more_posts(subreddit):
         return
-    url = f"https://www.reddit.com/r/{subreddit}/hot/.json"
-    headers = {
-        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
-    }
-    params = {'limit': 100}
-    if after:
-        params['after'] = after
-    response = requests.get(
-                    url, headers=headers, params=params, allow_redirects=False
+    posts = fetch_hot_posts(subreddit)
+    titles = [post['title'].lower() for post in posts]
+    word_counts = Counter(
+                    word for title in titles for word in word_list if word in title
                     )
-    if response.status_code != 200:
-        return
-    main_data = response.json()
-    data = main_data.get('data')
-    children = data.get("children")
-    for post in children:
-        title = post.get('data', {}).get('title').lower()
-        for word in word_list:
-            if word.lower() in title:
-                counts[word] = counts.get(word, 0) + title.count(word.lower{})
-    after = main_data.get('data', {}).get('after')
-    if after:
-        count_words(subreddit, word_list, after, counts)
-    else:
-        sorted_counts = sorted(
-                counts.items(), key=lambda x: (-x[1], x[0].lower())
-        )
-        for word, count in sorted_counts:
-            print(f"{word.lower()}: {count}")
+    sorted_counts = sorted(word_counts.items(), key=lambda x: (-x[1], x[0]))
+    for word, count in sorted_counts:
+        if count > 0:
+            print(f"{word}: {count}")
 
 
-if __name__ == '__main__':
+def fetch_hot_posts(subreddit: str) -> List[dict]:
+    """
+    Fetches hot posts from the specified subreddit.
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers)
+    if response.status_code!= 200:
+        return []
+    data = response.json()
+    return data['data']['children']
+
+
+def has_more_posts(subreddit: str) -> bool:
+    """
+    Checks if there are more posts to fetch.
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.head(url, headers=headers)
+    return response.status_code == 200 and "X-Ratelimit-Remaining" in response.headers
+
+
+if __name__ == "__main__":
+    import sys
     if len(sys.argv) < 3:
         print("Usage: {} <subreddit> <list of keywords>".format(sys.argv[0]))
-        print("Ex: {} programming 'python java javascript'".format(
-                                                                sys.argv[0]))
     else:
-        result = count_wards(sys.argv[1], [x for x in sys.argv[2].split()])
+        subreddit = sys.argv[1]
+        keywords = [keyword.lower() for keyword in sys.argv[2].split()]
+        count_words(subreddit, keywords)
