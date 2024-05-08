@@ -31,7 +31,7 @@ def fetch_hot_posts(subreddit: str) -> List[dict]:
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "Mozilla/5.0"}
     response = requests.get(url, headers=headers)
-    if response.status_code!= 200:
+    if response.status_code != 200:
         return []
     data = response.json()
     return data['data']['children']
